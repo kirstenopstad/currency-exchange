@@ -3,11 +3,12 @@ export default class CurrencyExchangeService {
   // Create static method to gather country code data
   static getCountryCodes() {
     // Return promise
-    return fetch(`https://v6.exchangerate-api.com/v6/API_KEY/codes`)
+    return fetch(`https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/codes`)
       // Validate response
       .then(function(response) {
-        if (!response) {
-          throw new Error("API ERROR");
+        if (!response.ok) {
+          const errorMsg = `${response.result}`;
+          throw new Error(errorMsg);
         } else {
           return response.json();
         }
