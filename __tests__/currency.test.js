@@ -14,4 +14,9 @@ describe('Currency', () => {
     expect(currency.exchangeCurrencyCode).toEqual('');
   });
 
+  test('It should return a currency object with props to hold country codes', () => {
+    let currency = new Currency(0,0,'USD','', {});
+    expect(currency.CountryCodes).toEqual({});
+  });
+
 })
