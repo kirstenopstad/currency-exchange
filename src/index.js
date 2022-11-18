@@ -11,12 +11,11 @@ function getAPIData(amtInput, exchangeInput) {
     .then((countryData) => {
       // Check if repsonse is error
       if (countryData instanceof Error) {
-        // TODO: Write detailed error message
-        const errorMsg = `There was an error contacting the ExchangeRate API. Error: ${countryData.message}`;
+        const errorMsg = `There was an error contacting the ExchangeRate API to access supported country codes. Error: ${countryData.message}`;
         throw new Error(errorMsg);
       }
-      let countryArray = countryData.supported_codes;
-      currency.countryCodes = countryArray;
+      // Add country data to currency object
+      currency.countryCodes = countryData.supported_codes;
       parseResults(currency);
       // If currency code found, run results
       if (currency.getCountryCode(exchangeInput)) {
@@ -24,8 +23,21 @@ function getAPIData(amtInput, exchangeInput) {
       } else {
         printError("Invalid currency code.");
       }
-
+      return CurrencyExchangeService.getExchangeRates()
     })
+    .then((exchangeRateData) => {
+      // Check if response is error
+      if (exchangeRateData instanceof Error) {
+        const errorMsg = `There was an error contacting the ExchangeRate API to access exchange rate data. Error: ${exchangeRateData.message}`;
+        throw new Error(errorMsg);
+      }
+      // Add exchange rate data to currency object
+      currency.exchangeRates = exchangeRateData.conversion_rates;
+      // Run exchange calc method on currency
+
+      // Return currency
+    })
+    
     .catch(function(error) {
       printError(error);
     });

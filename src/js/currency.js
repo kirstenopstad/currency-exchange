@@ -25,4 +25,10 @@ export default class Currency {
       }
     }
   }
+
+  getExchangeCurrency(countryCode) {
+    let exchangeRate = this.exchangeRates[countryCode];
+    this.exchangeCurrency = this.baseCurrency * exchangeRate;
+    return this.exchangeCurrency;
+  }
 }
