@@ -15,6 +15,12 @@ function getAPIData(amt, currencyName) {
         throw new Error(errorMsg);
       }
       console.log("API Response Success!")
+      this.countryCodes = {};
+      let CountryArray = countryData.supported_codes;
+      CountryArray.forEach((country) => {
+        Object.defineProperty(this.countryCodes, country[0]);
+      });
+
     })
     .catch(function(error) {
       printError(error);

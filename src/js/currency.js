@@ -1,8 +1,10 @@
 export default class Currency {
-  constructor(baseCurrency, exchangeCurrency, baseCurrencyCode, exchangeCurrencyCode) {
+  constructor(baseCurrency, baseCurrencyCode) {
     this.baseCurrency = baseCurrency;
-    this.exchangeCurrency = exchangeCurrency;
+    this.exchangeCurrency = 0;
     this.baseCurrencyCode = baseCurrencyCode;
-    this.exchangeCurrencyCode = exchangeCurrencyCode;
+    this.exchangeCurrencyCode = '';
+    this.countryCodes = {};
+    this.exchangeRates = {};
   } 
 }

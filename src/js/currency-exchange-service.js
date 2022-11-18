@@ -20,4 +20,5 @@ export default class CurrencyExchangeService {
   // Create static method to gather country code data
   static getExchangeRates() {
   }
+
 }
