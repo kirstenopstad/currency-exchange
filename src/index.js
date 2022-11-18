@@ -1,13 +1,15 @@
 import CurrencyExchangeService from '../src/js/currency-exchange-service.js';
+import Currency from './js/currency.js';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 
 // Business Logic
 function getAPIData(amt, currencyName) {
-  console.log(amt, currencyName)
+  console.log(currencyName)
+  let currency = new Currency(amt, 'USD');
   CurrencyExchangeService.getCountryCodes()
-    .then(function(countryData) {
+    .then((countryData) => {
       // Check if repsonse is error
       if (countryData instanceof Error) {
         // TODO: Write detailed error message
@@ -15,13 +17,12 @@ function getAPIData(amt, currencyName) {
         throw new Error(errorMsg);
       }
       console.log("API Response Success!")
-      this.countryCodes = {};
-      let CountryArray = countryData.supported_codes;
-      CountryArray.forEach((country) => {
-        Object.defineProperty(this.countryCodes, country[0]);
-      });
+      let countryArray = countryData.supported_codes;
+      currency.countryCodes = countryArray;
+      currency = parseResults(currency);
+      printResults(currency);
+      })
 
-    })
     .catch(function(error) {
       printError(error);
     })
@@ -29,13 +30,24 @@ function getAPIData(amt, currencyName) {
 
 }
 
-
+function parseResults(data) {
+  let dataArray = data.countryCodes;
+  dataArray.forEach(function(country, index) {
+    console.log(country, index)
+    // Add country code to exchangeRates obj
+  })
+  return data;
+}
 
 // UI Logic
 
 function printError(error) {
   console.log(error);
   document.querySelector("p#response").innerText = error;
+}
+
+function printResults(currencyData) {
+  document.querySelector("p#response").innerText = currencyData.countryCodes[0];
 }
 
 function handleFormSubmission() {
