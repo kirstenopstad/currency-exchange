@@ -7,4 +7,12 @@ export default class Currency {
     this.countryCodes = {};
     this.exchangeRates = {};
   } 
+  
+  getCountryCode(input) {
+    Object.keys(this.countryCodes).forEach((array) => {
+      if (array.includes(input)) {
+        this.exchangeCurrencyCode = array[0];
+      }
+    })
+  }
 }
