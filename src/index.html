@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>TEMPLATE</title>
+    <title>Currency Exchange</title>
   </head>
 <body>
-
+  <div class="container">
+    <form id="exchange-form" class="row">
+      <!-- User Input: base currency (USD) -->
+      <label for="input-base-currency" class="form-label">Base Currency (USD)</label>
+      <input id="input-base-currency" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+       <!-- User Input: exchange currency name -->
+      <label for="input-exchange-currency" class="form-label">Exchange Currency</label>
+      <input type="text" class="form-control" id="validationDefault01" value="Currency Name (i.e. South Korean Won)">
+      <button class="btn btn-primary" type="submit">Get Exchange Rate</button>
+    </form>
+  </div>
 </body>
 </html>
