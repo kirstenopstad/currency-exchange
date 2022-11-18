@@ -18,9 +18,13 @@ function getAPIData(amtInput, exchangeInput) {
       let countryArray = countryData.supported_codes;
       currency.countryCodes = countryArray;
       parseResults(currency);
-      currency.getCountryCode(exchangeInput);
-      console.log(exchangeInput);
-      printResults(currency);
+      // If currency code found, run results
+      if (currency.getCountryCode(exchangeInput)) {
+        printResults(currency);
+      } else {
+        printError("Invalid currency code.");
+      }
+
     })
     .catch(function(error) {
       printError(error);
@@ -35,7 +39,7 @@ function parseResults(data) {
   countryArrays.forEach((countryArray, index) => {
     Object.defineProperty(data.countryCodes, countryArray[0], {value: countryArray[1]});
     delete data.countryCodes[index];
-  })
+  });
 }
 
 function printError(error) {
@@ -43,7 +47,11 @@ function printError(error) {
 }
 
 function printResults(currencyData) {
-  document.querySelector("p#response").innerText = currencyData.countryCodes[0];
+  
+  
+  document.querySelector("p#response").innerText = `Base: ${currencyData.baseCurrency} ${currencyData.baseCurrencyCode}
+  Exchange: ${currencyData.exchangeCurrency} ${currencyData.exchangeCurrencyCode}
+  Based on a _____ rate of exchange.`;
 }
 
 function handleFormSubmission() {

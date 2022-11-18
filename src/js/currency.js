@@ -6,13 +6,23 @@ export default class Currency {
     this.exchangeCurrencyCode = '';
     this.countryCodes = {};
     this.exchangeRates = {};
-  } 
+  }
   
   getCountryCode(input) {
-    Object.keys(this.countryCodes).forEach((array) => {
-      if (array.includes(input)) {
-        this.exchangeCurrencyCode = array[0];
+    // If not a string, return false
+    if (typeof input != "string") {
+      return false;
+    } else {
+      // Ready input for comparison
+      input.toUpperCase().trim();
+      // If country code in supported country list, return true
+      if (this.countryCodes[input]) {
+        this.exchangeCurrencyCode = input;
+        return true;
+      } else {
+        // Else not found in country codes list, return false
+        return false;
       }
-    })
+    }
   }
 }
