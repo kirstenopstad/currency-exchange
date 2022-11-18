@@ -52,12 +52,30 @@ This template includes placeholders for:
 
 ## Setup/Installation Requirements
 
+* To use this app, you will need to create an account and get an API key from [Exchange Rate API](https://app.exchangerate-api.com/).
+  * Visit the ExchangeRate-API site. Input your email address and click the "Get Free Key" button.
+  * You'll be prompted to create an account with your email, first name and a password. Agree to the terms of use and click "Get Started!"
+  * At this point, you'll be able to access a dashboard that includes your API key as well as your remaining API calls for the month.
+
 * Clone this repo to your workspace.
 * Navigate to the top level of the directory.
 * In the root directory of the project, run this command to install all packages listed in the package.json:
 ```
 $ npm install
 ```
+* Then, to add API access:
+  * Open .gitignore and add .env to the list of things git should ignore
+  ```
+  node_modules/
+  .DS_Store
+  dist/
+  coverage/
+  .env
+  ```
+  * Next create .env file and define a variable **API_KEY** that holds _your API key_ and save it
+  ```
+  API_KEY=your-api-key-not-this-text
+  ```
 * Then, to build and serve the project, run: 
 ```
 $ npm run start
