@@ -20,6 +20,7 @@ function getAPIData(amt, currencyName) {
       let countryArray = countryData.supported_codes;
       currency.countryCodes = countryArray;
       currency = parseResults(currency);
+      parseResults(currency);
       printResults(currency);
       })
 
@@ -27,13 +28,16 @@ function getAPIData(amt, currencyName) {
       printError(error);
     })
    // Validate exchange currency is supported
-
 }
 
 function parseResults(data) {
   let dataArray = data.countryCodes;
-  dataArray.forEach(function(country, index) {
-    console.log(country, index)
+  let countryInput = "KWR"
+  dataArray.forEach(function(country) {
+    if (country.includes(countryInput)) {
+      data.exchangeCurrencyCode = country[0];
+      console.log(data.exchangeCurrencyCode)
+    }
     // Add country code to exchangeRates obj
   })
   return data;
