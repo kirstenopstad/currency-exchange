@@ -17,13 +17,12 @@ function getAPIData(amtInput, exchangeInput) {
       // Add country data to currency object
       currency.countryCodes = countryData.supported_codes;
       parseResults(currency);
-      // If currency code found, run results
-      if (currency.getCountryCode(exchangeInput)) {
-        printResults(currency);
-      } else {
-        printError("Invalid currency code.");
+      // Validate exchange currency is supported
+      if (!currency.getCountryCode(exchangeInput)) {
+        const errorMsg = "Invalid currency code.";
+        throw new Error(errorMsg);
       }
-      return CurrencyExchangeService.getExchangeRates()
+      return CurrencyExchangeService.getExchangeRates();
     })
     .then((exchangeRateData) => {
       // Check if response is error
@@ -34,18 +33,17 @@ function getAPIData(amtInput, exchangeInput) {
       // Add exchange rate data to currency object
       currency.exchangeRates = exchangeRateData.conversion_rates;
       // Run exchange calc method on currency
-
+      currency.getExchangeCurrency(currency.exchangeCurrencyCode);
       // Return currency
+      printResults(currency);
     })
     
     .catch(function(error) {
       printError(error);
     });
-  // Validate exchange currency is supported
   return currency;
 }
 
-// UI Logic
 function parseResults(data) {
   let countryArrays = data.countryCodes;
   countryArrays.forEach((countryArray, index) => {
@@ -53,17 +51,15 @@ function parseResults(data) {
     delete data.countryCodes[index];
   });
 }
-
+// UI Logic
 function printError(error) {
   document.querySelector("p#response").innerText = error;
 }
 
 function printResults(currencyData) {
-  
-  
   document.querySelector("p#response").innerText = `Base: ${currencyData.baseCurrency} ${currencyData.baseCurrencyCode}
   Exchange: ${currencyData.exchangeCurrency} ${currencyData.exchangeCurrencyCode}
-  Based on a _____ rate of exchange.`;
+  Based on a ${currencyData.exchangeRate} rate of exchange.`;
 }
 
 function handleFormSubmission() {
@@ -78,10 +74,6 @@ function handleFormSubmission() {
     // Validate base amount is number
     // Run getAPIData()
     getAPIData(inputBaseAmt, inputCurrencyName);
-    // Run getCurrencyCode(), store in variable
-    // Run getExchangeValue(baseAmt, currencyCode)
-    // Display value in exchange currency in DOM
-    document.querySelector("p#response").innerText = "hello!";
   }
 }
 

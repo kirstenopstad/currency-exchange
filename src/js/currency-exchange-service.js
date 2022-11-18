@@ -17,7 +17,7 @@ export default class CurrencyExchangeService {
         return error;
       });
   }
-  // Create static method to gather country code data
+  // Create static method to gather exchange rate data
   static getExchangeRates() {
     // Return promise
     return fetch(`https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USD`)

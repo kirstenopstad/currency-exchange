@@ -29,6 +29,7 @@ export default class Currency {
   getExchangeCurrency(countryCode) {
     let exchangeRate = this.exchangeRates[countryCode];
     this.exchangeCurrency = this.baseCurrency * exchangeRate;
+    this.exchangeRate = exchangeRate;
     return this.exchangeCurrency;
   }
 }
