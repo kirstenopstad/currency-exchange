@@ -11,8 +11,8 @@ function getAPIData(amt, currencyName) {
       // Check if repsonse is error
       if (countryData instanceof Error) {
         // TODO: Write detailed error message
-        const errorMsg = `There was an error contacting the ExchangeRate API: ${countryData.message}`;
-        throw new Error(errorMsg)
+        const errorMsg = `There was an error contacting the ExchangeRate API. Error: ${countryData.message}`;
+        throw new Error(errorMsg);
       }
       console.log("API Response Success!")
     })

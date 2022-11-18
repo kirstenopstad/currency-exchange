@@ -7,7 +7,7 @@ export default class CurrencyExchangeService {
       // Validate response
       .then(function(response) {
         if (!response.ok) {
-          const errorMsg = `${response.result}`;
+          const errorMsg = `${response.status}`;
           throw new Error(errorMsg);
         } else {
           return response.json();
