@@ -5,14 +5,20 @@
   </head>
 <body>
   <div class="container">
-    <form id="exchange-form" class="row">
+    <h1>Currency Exchange</h1>
+    <p>Enter the value in US Dollars and the three-digit country code for the currency you'd like to exchange into.</p>
+    <form id="exchange-form">
       <!-- User Input: base currency (USD) -->
-      <label for="input-base-currency" class="form-label">Base Currency (USD)</label>
-      <input id="input-base-currency" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
-       <!-- User Input: exchange currency name -->
-      <label for="input-exchange-currency" class="form-label">Exchange Currency</label>
-      <input id="input-exchange-currency" type="text" class="form-control" placeholder="EUR">
-      <button class="btn btn-primary" type="submit">Get Exchange Rate</button>
+      <div class="mb-3">
+        <label for="input-base-currency" class="form-label">Base Currency (USD)</label>
+        <input id="input-base-currency" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+      </div>
+      <!-- User Input: exchange currency name -->
+      <div class="mb-3">
+        <label for="input-exchange-currency" class="form-label">Exchange Currency</label>
+        <input id="input-exchange-currency" type="text" class="form-control" placeholder="EUR">
+      </div>
+      <button class="btn btn-primary" type="submit">Get Exchange Value</button>
     </form>
     <div>
       <p id="response"></p>
