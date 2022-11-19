@@ -5,8 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 
 // Business Logic
-function getAPIData(amtInput, exchangeInput) {
-  let currency = new Currency(amtInput, 'USD');
+function getAPIData() {
+  let currency = new Currency(0, 'USD');
   CurrencyExchangeService.getCountryCodes()
     .then((countryData) => {
       // Check if repsonse is error
@@ -17,11 +17,6 @@ function getAPIData(amtInput, exchangeInput) {
       // Add country data to currency object
       currency.countryCodes = countryData.supported_codes;
       parseResults(currency);
-      // Validate exchange currency is supported
-      if (!currency.getCountryCode(exchangeInput)) {
-        const errorMsg = "Invalid currency code.";
-        throw new Error(errorMsg);
-      }
       return CurrencyExchangeService.getExchangeRates();
     })
     .then((exchangeRateData) => {
@@ -32,12 +27,8 @@ function getAPIData(amtInput, exchangeInput) {
       }
       // Add exchange rate data to currency object
       currency.exchangeRates = exchangeRateData.conversion_rates;
-      // Run exchange calc method on currency
-      currency.getExchangeCurrency(currency.exchangeCurrencyCode);
-      // Return currency
-      printResults(currency);
+      return currency;
     })
-    
     .catch(function(error) {
       printError(error);
     });
@@ -62,7 +53,7 @@ function printResults(currencyData) {
   Based on a ${currencyData.exchangeRate} rate of exchange.`;
 }
 
-function handleFormSubmission() {
+function handleFormSubmission(currency) {
   event.preventDefault();
   // Return error if user inputs nothing 
   if (!document.getElementById("input-base-currency").value || !document.getElementById("input-exchange-currency").value) {
@@ -71,13 +62,26 @@ function handleFormSubmission() {
     // Get values of base amt & exchange currency
     const inputBaseAmt = document.getElementById("input-base-currency").value;
     const inputCurrencyName = document.getElementById("input-exchange-currency").value;
-    // Validate base amount is number
+    // TODO: Validate base amount is number
+    // Add user inputs to currency object
+    currency.baseCurrency = inputBaseAmt;
+    currency.baseCurrencyCode = inputCurrencyName;
+    // Validate exchange currency is supported
+    if (!currency.getCountryCode(inputCurrencyName)) {
+      const errorMsg = "Invalid currency code.";
+      throw new Error(errorMsg);
+    }
+    
+    // Run exchange calc method on currency
+    currency.getExchangeCurrency(currency.exchangeCurrencyCode);
+    // Return currency
+    printResults(currency);
     // Run getAPIData()
-    getAPIData(inputBaseAmt, inputCurrencyName);
+    // getAPIData(inputBaseAmt, inputCurrencyName);
   }
 }
 
 window.addEventListener("load", function() {
-  // TODO: Get country codes & store in class 
-  document.querySelector("form#exchange-form").addEventListener("submit", handleFormSubmission);
+  const currency = getAPIData();
+  document.querySelector("form#exchange-form").addEventListener("submit", handleFormSubmission(currency));
 });
