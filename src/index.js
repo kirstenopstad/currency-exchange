@@ -60,8 +60,8 @@ function roundToTwo(number) {
 
 // UI Logic
 function toUSD(value) {
-  value = `$${value}`
-  return value
+  value = `$${value}`;
+  return value;
 }
 
 function printError(error) {
@@ -70,7 +70,7 @@ function printError(error) {
 
 function printResults(currencyData) {
   currencyData.baseCurrency = toUSD(currencyData.baseCurrency);
-  currencyData.exchangeRate = roundToTwo(currencyData.exchangeRate)
+  currencyData.exchangeRate = roundToTwo(currencyData.exchangeRate);
   document.querySelector("p#response").innerText = `Base: ${currencyData.baseCurrency} ${currencyData.baseCurrencyCode}
   Exchange: ${currencyData.exchangeCurrency} ${currencyData.exchangeCurrencyCode} (${currencyData.exchangeCurrencyName})
   Based on a ${currencyData.exchangeRate} rate of exchange.`;
