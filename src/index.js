@@ -4,6 +4,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 
+// Utilities
 // Business Logic
 function getAPIData(amtInput, exchangeInput) {
   let currency = new Currency(amtInput, 'USD');
@@ -51,19 +52,27 @@ function parseResults(data) {
     delete data.countryCodes[index];
   });
 }
+
+function roundToTwo(number) {
+  number = parseFloat(Number.parseFloat(number).toFixed(2));
+  return number;
+}
+
 // UI Logic
 function toUSD(value) {
   value = `$${value}`
   return value
 }
+
 function printError(error) {
   document.querySelector("p#response").innerText = error;
 }
 
 function printResults(currencyData) {
   currencyData.baseCurrency = toUSD(currencyData.baseCurrency);
+  currencyData.exchangeRate = roundToTwo(currencyData.exchangeRate)
   document.querySelector("p#response").innerText = `Base: ${currencyData.baseCurrency} ${currencyData.baseCurrencyCode}
-  Exchange: ${currencyData.exchangeCurrency} ${currencyData.exchangeCurrencyCode}
+  Exchange: ${currencyData.exchangeCurrency} ${currencyData.exchangeCurrencyCode} (${currencyData.exchangeCurrencyName})
   Based on a ${currencyData.exchangeRate} rate of exchange.`;
 }
 
