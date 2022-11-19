@@ -6,6 +6,7 @@ import './css/styles.css';
 
 // Business Logic
 function getAPIData() {
+  event.preventDefault();
   let currency = new Currency(0, 'USD');
   CurrencyExchangeService.getCountryCodes()
     .then((countryData) => {
@@ -32,7 +33,6 @@ function getAPIData() {
     .catch(function(error) {
       printError(error);
     });
-  return currency;
 }
 
 function parseResults(data) {
@@ -83,5 +83,7 @@ function handleFormSubmission(currency) {
 
 window.addEventListener("load", function() {
   const currency = getAPIData();
-  document.querySelector("form#exchange-form").addEventListener("submit", handleFormSubmission(currency));
+  document.querySelector("form#exchange-form").addEventListener("submit", function() {
+    handleFormSubmission(currency)
+  });
 });
