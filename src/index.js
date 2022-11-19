@@ -52,11 +52,16 @@ function parseResults(data) {
   });
 }
 // UI Logic
+function toUSD(value) {
+  value = `$${value}`
+  return value
+}
 function printError(error) {
   document.querySelector("p#response").innerText = error;
 }
 
 function printResults(currencyData) {
+  currencyData.baseCurrency = toUSD(currencyData.baseCurrency);
   document.querySelector("p#response").innerText = `Base: ${currencyData.baseCurrency} ${currencyData.baseCurrencyCode}
   Exchange: ${currencyData.exchangeCurrency} ${currencyData.exchangeCurrencyCode}
   Based on a ${currencyData.exchangeRate} rate of exchange.`;
