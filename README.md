@@ -10,9 +10,8 @@
 * CSS
 * Bootstrap
 * JavaScript
-* Nade.js
-* Jest
-* Babel
+* webpack
+* Node.js
 
 ## Description
 
@@ -39,13 +38,13 @@ This template includes placeholders for:
 
 [x] Screenshots
 
-![Screenshots](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.03bZmDGXaBhBYyxxp3Ls3gHaEA%26pid%3DApi&f=1&ipt=e980d57210242747a51c41421e1f09a6de3b1fdaeaadd297496787bb64e80c88&ipo=images)
+![Screenshots](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.03bZmDGXaBhBYyxxp3Ls3gHaEA%26pid%3DApi&f=1&ipt=e980d57210242747a51c41421e1f09a6de3b1fdaeaadd297496787bb64e80c88&ipo=images) -->
 
-[x] [Link to operational site](http://www.kirstenopstad.github.com/<REPOSITORY NAME>) -->
+[Link to operational site!](https://kirstenopstad.github.io/currency-exchange/)
 
 ### Goals
-1. Meet MVP Requirements
-2. Allow users to convert currency between all available currency types.
+1. Meet MVP Requirements. ✅
+2. Allow users to convert currency between all available currency types. ✅
 3. Allow users to convert currency both to and from U.S. dollars.
 4. Use a dropdown menu for currencies.
 5. Stretch: Cache the API's results, so you only need to make the call once as long as a user is on the site. Try using session storage for this. If exchange rates are successfully being stored in session storage, an API call shouldn't be made. Instead, the rates can be grabbed directly from session storage.
@@ -79,10 +78,6 @@ $ npm install
 * Then, to build and serve the project, run: 
 ```
 $ npm run start
-```
-To lint the application, run:
-```
-$ npm run lint
 ```
 To run tests with Jest, run:
 ```
